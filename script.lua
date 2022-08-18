@@ -50,6 +50,18 @@ wyvern.modules = {
     ["Other"]  =  "Other"
 }
 
+wyvern.coreCommands = {
+    [1] = "Rejoin",
+    [2] = "Serverhop",
+    [3] = "Respawn",
+    [4] = "Update",
+    [5] = "Shutdown",
+    [6] = "Warp",
+    [7] = "Chat",
+    [8] = "CopyWorkSpace",
+    [9] = "PlayerAge"
+}
+
 --[[
     Wyvern Init end
     Just the basic stuff.
@@ -176,6 +188,7 @@ wyvern.util.download_plugin = function(plugin)
     })
     
 	writefile('Wyvern-Source/Plugins/'..fileName, ob)
+    warn("Downloaded " .. plugin .. ".")
 end
 
 wyvern.util.download_hook = function(hook)
@@ -183,6 +196,7 @@ wyvern.util.download_hook = function(hook)
     local pluginRaw = wyvern.util.requestGet(url)
     fileName = loadstring(pluginRaw)().HookName ..  ".lua" 
 	writefile('Wyvern-Source/Hooks/'..fileName, pluginRaw)
+    warn("Downloaded " .. hook .. ".")
 end
 
 wyvern.util.download_event = function(event)
@@ -190,6 +204,7 @@ wyvern.util.download_event = function(event)
     local pluginRaw = wyvern.util.requestGet(url)
     fileName = loadstring(pluginRaw)().EventName ..  ".lua" 
 	writefile('Wyvern-Source/Events/'..fileName, pluginRaw)
+    warn("Downloaded " .. event .. ".")
 end
 
 wyvern.util.download_command = function(command)
@@ -198,6 +213,7 @@ wyvern.util.download_command = function(command)
     fileName = loadstring(pluginRaw)().CommandName .. ".lua"
     commandcategory = loadstring(pluginRaw)().CommandCategory
 	writefile('Wyvern-Source/Commands/'..commandcategory..'/'..fileName, pluginRaw)
+    warn("Downloaded " .. command .. ".")
 end
 
 wyvern.util.download_config = function(config)
@@ -205,6 +221,7 @@ wyvern.util.download_config = function(config)
     local pluginRaw = wyvern.util.requestGet(url)
     fileName = loadstring(pluginRaw)().ConfigName .. ".lua"  
 	writefile('Wyvern-Source/Configs/'..fileName, pluginRaw)
+    warn("Downloaded " .. config .. ".")
 end
 
 wyvern.util.download_module = function(module)
@@ -212,6 +229,7 @@ wyvern.util.download_module = function(module)
     local pluginRaw = wyvern.util.requestGet(url)
     fileName = loadstring(pluginRaw)().ModuleName ..  ".lua"  
 	writefile('Wyvern-Source/Modules/'..fileName, pluginRaw)
+    warn("Downloaded " .. module .. ".")
 end
 
 wyvern.util.checkIfPluginExists = function(plugin)
@@ -270,14 +288,22 @@ makefolder(wyvern.DefaultFolderPath)
 
 for i,v in pairs(wyvern.config) do
     makefolder(wyvern.DefaultFolderPath .. v)
+    warn("Created " .. v .. " folder.")
 end
 
 for i,v in pairs(wyvern.categories) do
     makefolder(wyvern.DefaultFolderPath .. '/Commands/' .. v)
+    warn("Created " .. v .. " folder.")
+end
+
+for i,v in pairs(wyvern.coreCommands) do
+    makefolder(wyvern.DefaultFolderPath .. '/Commands/Core/' .. v)
+    warn("Created " .. v .. " folder.")
 end
 
 
 wyvern.util.download_plugin('example')
+
 
 
 --[[
