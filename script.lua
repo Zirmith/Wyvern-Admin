@@ -1,3 +1,12 @@
+if syn and DrawingImmediate then fileExtension = "txt" end
+local fileExLen = #fileExtension + 1
+
+
+--[[
+    Wyvern Init
+    Just the basic stuff.
+--]]
+
 local wyvern = {}
 
 wyvern.util = {}
@@ -10,11 +19,6 @@ wyvern.DefaultFolderPath = "Wyvern-Source/"
 wyvern.prefix = "w."
 wyvern.logName = "Wyvern-Log"
 local fileExtension = "wyrn"
-if syn and DrawingImmediate then fileExtension = "txt" end
-local fileExLen = #fileExtension + 1
-
-
-
 
 
 
@@ -45,6 +49,19 @@ wyvern.modules = {
     ["Utility"]  =  "Utility",
     ["Other"]  =  "Other"
 }
+
+--[[
+    Wyvern Init end
+    Just the basic stuff.
+--]]
+
+
+--[[
+    Wyvern Admin file functions
+
+    These functions are used to read and write files to the Wyvern-Source folder.
+    This is where all the plugins, hooks, events, commands, configs, and modules are stored.
+]]
 
 wyvern.util.Client = function()
     local self = {}
@@ -223,14 +240,8 @@ wyvern.util.checkIfEventExists = function(event)
     end
 end
 
-wyvern.util.checkIfCommandExists = function(command)
-    local command = wyvern.util.get_command(command)
-    if command then
-        return true
-    else
-        return false
-    end
-end
+
+
 
 
 
@@ -253,6 +264,13 @@ wyvern.util.makeLog = function(message , code)
   writefile(location, json, null, 2)
 end
 
+--[[
+    Wyvern Admin file functions end
+
+    These functions are used to read and write files to the Wyvern-Source folder.
+    This is where all the plugins, hooks, events, commands, configs, and modules are stored.
+]]
+
 makefolder(wyvern.DefaultFolderPath)
 
 for i,v in pairs(wyvern.config) do
@@ -261,3 +279,179 @@ end
 
 
 wyvern.util.download_plugin('example')
+
+
+--[[
+    Wyvern Admin player functions
+    These functions are used to get and set player data.
+
+]]
+
+
+wyvern.util.RemoveSpaces = function(name)
+    return name:gsub('%s+', '') or name
+end
+
+wyvern.util.finduser = function(name)
+    name = wyvern.util.RemoveSpaces(name)
+    for i, player in pairs(game:GetService('Players'):GetPlayers()) do
+        if player.Name:match('^'.. name) then
+            return player
+        end
+    end
+    return nil
+end
+
+wyvern.util.getMouse = function()
+    return game:GetService('UserInputService'):GetMouseLocation()
+end
+
+wyvern.util.getPlayer = function()
+    return game.Players.LocalPlayer
+end
+
+wyvern.util.getPlayers = function()
+    local players = {}
+    for i, player in pairs(game:GetService('Players'):GetPlayers()) do
+        table.insert(players, player)
+    end
+    return players
+end
+
+wyvern.util.getPlayerHumanoid = function()
+    return game.Players.LocalPlayer.Character.Humanoid
+end
+
+wyvern.util.getPlayerCharacter = function()
+    return game.Players.LocalPlayer.Character
+end
+
+wyvern.util.getPlayersHumanoid = function()
+    local humanoid = {}
+    for i, player in pairs(game:GetService('Players'):GetPlayers()) do
+        table.insert(humanoid, player.Character.Humanoid)
+    end
+    return humanoid
+end
+
+--[[
+    Wyvern Admin player functions end
+    These functions are used to get and set player data.
+
+]]
+
+
+
+--[[
+    Wyvern Admin game functions
+    These functions are used to get and set game data.
+]]
+
+wyvern.util.getGame = function()
+    return game
+end
+
+wyvern.util.getWorkspace = function()
+    return game.Workspace
+end
+
+wyvern.util.getPlayersService = function()
+    return game:GetService('Players')
+end
+
+wyvern.util.getLighting = function()
+    return game.Lighting
+end
+
+wyvern.util.getReplicatedStorage = function()
+    return game.ReplicatedStorage
+end
+
+wyvern.util.getServerScriptService = function()
+    return game.ServerScriptService
+end
+
+wyvern.util.getStarterGui = function()
+    return game.StarterGui
+end
+
+wyvern.util.getCoreGui = function()
+    return game.CoreGui
+end
+
+wyvern.util.getLightingService = function()
+    return game.Lighting
+end
+
+wyvern.util.getPlayers = function()
+    return game.Players
+end
+
+wyvern.util.getPlaceId = function()
+    return game.PlaceId
+end
+
+wyvern.util.getPlace = function()
+    local market = game:GetService('MarketplaceService')
+    return market:GetProductInfo(game.PlaceId).Name
+end
+
+wyvern.util.getCreator = function()
+    local market = game:GetService('MarketplaceService')
+    return market:GetProductInfo(game.PlaceId).Creator.Name
+end
+
+wyvern.util.getCreatorId = function()
+    local market = game:GetService('MarketplaceService')
+    return market:GetProductInfo(game.PlaceId).Creator.Id
+end
+
+--[[
+    Wyvern Admin game functions end
+    These functions are used to get and set game data.
+]]
+
+
+--[[
+    Wyvern Admin commands
+    These functions are used to create and run commands.
+]]
+
+wyvern.commands.test = function(player, args)
+    wyvern.util.makeLog("test", "test")
+end
+
+--[[
+    Wyvern Admin commands
+    These functions are used to create and run commands.
+]]
+
+
+--[[
+    Wyvern Admin Start
+    This is the main function that is called when the admin is started.
+]]
+
+ wyvern.util.getPlayer().Chatted:Connect(function(message)
+    if message:sub(1, 1) == wyvern.prefix then
+        local command = message:sub(2)
+        local args = {}
+        for i in string.gmatch(command, "%S+") do
+            table.insert(args, i)
+        end
+        local command = args[1]
+        local args = {}
+        for i = 2, #args do
+            table.insert(args, args[i])
+        end
+        if wyvern.util.checkIfCommandExists(command) then
+            local command = wyvern.util.get_command(command)
+            command.Function(args)
+        end
+    end
+end)
+
+--[[
+    Wyvern Admin End
+    This is the main function that is called when the admin is started.
+]]
