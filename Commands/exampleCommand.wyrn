@@ -1,8 +1,8 @@
 return {
-    ["CommandName"] = "Example",
+    ["CommandName"] = "ExampleTest",
     ["CommandAuthor"] = "made by Azure",
     ["CommandDescription"] = "A Sample command that prints hello",
-    ['IsCore'] = true,
+    ['IsCore'] = false,
     ['Function'] = function(args)
         print("Hello World!")
     end
