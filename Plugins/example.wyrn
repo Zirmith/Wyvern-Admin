@@ -1,0 +1,5 @@
+return {
+    ["PluginName"] = "Example",
+    ["PluginDescription"] = "made by Azure",
+    ["Category"] = "Other"
+}
