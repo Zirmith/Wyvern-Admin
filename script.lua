@@ -18,7 +18,7 @@ wyvern.events = {}
 wyvern.DefaultFolderPath = "Wyvern-Source/"
 wyvern.prefix = "w."
 wyvern.logName = "Wyvern-Log"
-local fileExtension = "wyrn"
+wyvern.fileExtension = "wyrn"
 
 
 
@@ -166,7 +166,7 @@ wyvern.util.get_plugin = function(plugin)
 end
 
 wyvern.util.download_plugin = function(plugin)
-    local url = "https://raw.githubusercontent.com/Zirmith/Wyvern-Admin/main/Plugins/" .. plugin .. ".wyrn"
+    local url = "https://raw.githubusercontent.com/Zirmith/Wyvern-Admin/main/Plugins/" .. plugin .. "."..wyvern.fileExtension
     local pluginRaw = wyvern.util.requestGet(url)
     fileName = loadstring(pluginRaw)().PluginName .. ".lua" 
 
@@ -179,35 +179,35 @@ wyvern.util.download_plugin = function(plugin)
 end
 
 wyvern.util.download_hook = function(hook)
-    local url = "https://raw.githubusercontent.com/Zirmith/Wyvern-Admin/main/Hooks/" .. hook .. ".wyrn"
+    local url = "https://raw.githubusercontent.com/Zirmith/Wyvern-Admin/main/Hooks/" .. hook .. "."..wyvern.fileExtension
     local pluginRaw = wyvern.util.requestGet(url)
     fileName = loadstring(pluginRaw)().HookName ..  ".lua" 
 	writefile('Wyvern-Source/Hooks/'..fileName, pluginRaw)
 end
 
 wyvern.util.download_event = function(event)
-    local url = "https://raw.githubusercontent.com/Zirmith/Wyvern-Admin/main/Events/" .. event .. ".wyrn"
+    local url = "https://raw.githubusercontent.com/Zirmith/Wyvern-Admin/main/Events/" .. event .. "."..wyvern.fileExtension
     local pluginRaw = wyvern.util.requestGet(url)
     fileName = loadstring(pluginRaw)().EventName ..  ".lua" 
 	writefile('Wyvern-Source/Events/'..fileName, pluginRaw)
 end
 
 wyvern.util.download_command = function(command)
-    local url = "https://raw.githubusercontent.com/Zirmith/Wyvern-Admin/main/Commands/" .. command .. ".wyrn"
+    local url = "https://raw.githubusercontent.com/Zirmith/Wyvern-Admin/main/Commands/" .. command .. "."..wyvern.fileExtension
     local pluginRaw = wyvern.util.requestGet(url)
     fileName = loadstring(pluginRaw)().CommandName .. ".lua" 
 	writefile('Wyvern-Source/Commands/'..fileName, pluginRaw)
 end
 
 wyvern.util.download_config = function(config)
-    local url = "https://raw.githubusercontent.com/Zirmith/Wyvern-Admin/main/Config/" .. config .. ".wyrn"
+    local url = "https://raw.githubusercontent.com/Zirmith/Wyvern-Admin/main/Config/" .. config .. "."..wyvern.fileExtension
     local pluginRaw = wyvern.util.requestGet(url)
     fileName = loadstring(pluginRaw)().ConfigName .. ".lua"  
 	writefile('Wyvern-Source/Configs/'..fileName, pluginRaw)
 end
 
 wyvern.util.download_module = function(module)
-    local url = "https://raw.githubusercontent.com/Zirmith/Wyvern-Admin/main/Modules/" .. module .. ".wyrn"
+    local url = "https://raw.githubusercontent.com/Zirmith/Wyvern-Admin/main/Modules/" .. module .. "."..wyvern.fileExtension
     local pluginRaw = wyvern.util.requestGet(url)
     fileName = loadstring(pluginRaw)().ModuleName ..  ".lua"  
 	writefile('Wyvern-Source/Modules/'..fileName, pluginRaw)
