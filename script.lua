@@ -108,7 +108,7 @@ end
 local Client = wyvern.util.Client()
 
 wyvern.util.randomStringP = function()
-	local min, max, final = ("A"):byte(), ("Z"):byte(), "WyvernPluginDownloader-"
+	local min, max, final = ("A"):byte(), ("Z"):byte(), "WyvernDownloader-"
 	for i = 1, math.random(5, 10) do
 		final = final .. string.char(math.random(min, max))
 	end
