@@ -195,8 +195,9 @@ end
 wyvern.util.download_command = function(command)
     local url = "https://raw.githubusercontent.com/Zirmith/Wyvern-Admin/main/Commands/" .. command .. "."..wyvern.fileExtension
     local pluginRaw = wyvern.util.requestGet(url)
-    fileName = loadstring(pluginRaw)().CommandName .. ".lua" 
-	writefile('Wyvern-Source/Commands/'..fileName, pluginRaw)
+    fileName = loadstring(pluginRaw)().CommandName .. ".lua"
+    commandcategory = loadstring(pluginRaw)().CommandCategory
+	writefile('Wyvern-Source/Commands/'..commandcategory..'/'..fileName, pluginRaw)
 end
 
 wyvern.util.download_config = function(config)
@@ -275,6 +276,10 @@ makefolder(wyvern.DefaultFolderPath)
 
 for i,v in pairs(wyvern.config) do
     makefolder(wyvern.DefaultFolderPath .. v)
+end
+
+for i,v in pairs(wyvern.categories) do
+    makefolder(wyvern.DefaultFolderPath .. '/Commands/' .. v)
 end
 
 
