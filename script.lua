@@ -241,13 +241,8 @@ wyvern.util.checkIfEventExists = function(event)
     end
 end
 
-
-
-
-
-
 wyvern.util.makeLog = function(message , code)
-  local current_time = os.date("%Y-%m-%d %H:%M:%S")
+  local current_time = os.date("%m/%d/%Y %H:%M:%S")
   local fileName = wyvern.logName.. " " .. current_time .. ".txt"
   local json;
   local https = game:GetService'HttpService'
@@ -256,7 +251,6 @@ wyvern.util.makeLog = function(message , code)
     ['game'] = game:GetService'MarketplaceService':GetProductInfo(game.PlaceId).Name,
     ['creator'] = game:GetService'MarketplaceService':GetProductInfo(game.PlaceId).Creator.Name,
     ['player'] = game.Players.LocalPlayer.Name,
-    ['info'] = info,
     ["message"] = message,
     ["code"] = code
   }
@@ -485,7 +479,7 @@ wyvern.commands.download = function(player , args)
     if thingname == nil then
         return warn"Please enter a plugin name"
     end
-    wyvern.util.download_plugin(thingname)
+    wyvern.util.download_plugin(thingname) 
    end
    if thingtoget == "command" then
 
@@ -499,14 +493,14 @@ wyvern.commands.download = function(player , args)
     if thingname == nil then
         return warn"Please enter a event name"
     end
-    wyvern.util.download_event(thingname)
+    wyvern.util.download_event(thingname) 
    end
    if thingtoget == "hook" then
 
     if thingname == nil then
         return warn"Please enter a hook name"
     end
-    wyvern.util.download_hook(thingname)
+    wyvern.util.download_hook(thingname) 
    end
    if thingtoget == "module" then
 
@@ -520,7 +514,7 @@ wyvern.commands.download = function(player , args)
      if thingname == nil then
           return warn"Please enter a config name"
      end
-     wyvern.util.download_config(thingname)
+     wyvern.util.download_config(thingname) 
     end
     -- log downloaded a new thingtoget named thingname
     wyvern.util.log("Downloaded a new "..thingtoget.." named "..thingname, "info")
