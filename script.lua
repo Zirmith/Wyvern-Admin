@@ -51,15 +51,7 @@ wyvern.modules = {
 }
 
 wyvern.coreCommands = {
-    [1] = "Rejoin",
-    [2] = "Serverhop",
-    [3] = "Respawn",
-    [4] = "Update",
-    [5] = "Shutdown",
-    [6] = "Warp",
-    [7] = "Chat",
-    [8] = "CopyWorkSpace",
-    [9] = "PlayerAge"
+    [1] = "exampleCommand"
 }
 
 --[[
