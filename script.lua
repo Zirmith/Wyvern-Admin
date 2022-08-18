@@ -29,7 +29,7 @@ wyvern.fileExtension = "wyrn"
     ['Commands'] = "/Commands",
     ['Hooks'] = "/Hooks",
     ['Events'] = "/Events",
-    ['Config'] = "/Config",
+    ['Config'] = "/Configs",
     ['Log'] = "/Logs"
 }
 
