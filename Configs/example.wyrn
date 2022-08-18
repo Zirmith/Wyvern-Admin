@@ -1,0 +1,6 @@
+return {
+    ["ConfigName"] = "Example",
+    ["ConfigSettings"] = {
+        ['prefix'] = "!"
+    }
+}
