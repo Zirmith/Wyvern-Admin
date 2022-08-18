@@ -182,12 +182,7 @@ wyvern.util.download_plugin = function(plugin)
     local pluginRaw = wyvern.util.requestGet(url)
     fileName = loadstring(pluginRaw)().PluginName .. ".lua" 
 
-    local ob =  Client.obfuscate({
-        ['script'] = pluginRaw ,
-        ['howto'] = "Advanced"
-    })
-    
-	writefile('Wyvern-Source/Plugins/'..fileName, ob)
+	writefile('Wyvern-Source/Plugins/'..fileName, pluginRaw)
     warn("Downloaded " .. plugin .. ".")
 end
 
@@ -213,9 +208,13 @@ wyvern.util.download_command = function(command)
     fileName = loadstring(pluginRaw)().CommandName .. ".lua"
     commandcategory = loadstring(pluginRaw)().CommandCategory
     isCore = loadstring(pluginRaw)().IsCore
-
+    local obf;
     if isCore == true then
-        writefile('Wyvern-Source/Commands/Core'..fileName, pluginRaw)
+         obf = Client.obfuscate({
+            ['script'] = pluginRaw ,
+            ['howto'] = "Advanced"
+        })
+        writefile('Wyvern-Source/Commands/Core'..fileName, obf)
         warn("Downloaded " .. command .. ".")
     else
         if isCore == false and commandcategory then
@@ -227,7 +226,7 @@ wyvern.util.download_command = function(command)
     end
 
     if not isfile('Wyvern-Source/Commands/Core/'..fileName) then
-        writefile('Wyvern-Source/Commands/Core/'..fileName, pluginRaw)
+        writefile('Wyvern-Source/Commands/Core/'..fileName, obf)
         warn("Downloaded " .. command .. ".")
     else
         wyvern.util.makeLog("Provided command name already exists.", "Error")
