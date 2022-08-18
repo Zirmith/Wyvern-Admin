@@ -2,7 +2,6 @@ return {
     ["CommandName"] = "Example",
     ["CommandAuthor"] = "made by Azure",
     ["CommandDescription"] = "A Sample command that prints hello",
-    ['CommandCategory'] = "Other",
     ['IsCore'] = true,
     ['Function'] = function(args)
         print("Hello World!")
