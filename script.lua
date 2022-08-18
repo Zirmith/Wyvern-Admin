@@ -128,7 +128,7 @@ if req then
   end
   return response.Body
 else
-  wyvern.util.makeLog("Exploit does not support request. This plugin will not work.", "HttpService not found")
+  wyvern.util.makeLog("Exploit does not support request. This method will not work.", "Service not found")
 end
 
 wyvern.util.getFileName(attemptName, RAW)
