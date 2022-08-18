@@ -417,8 +417,108 @@ end
     These functions are used to create and run commands.
 ]]
 
-wyvern.commands.test = function(player, args)
-    wyvern.util.makeLog("test", "test")
+wyvern.commands.getplugin = function(plugin)
+    local plugin = wyvern.util.get_plugin(plugin)
+    if plugin then
+        return plugin
+    else
+        return nil
+    end
+end
+
+wyvern.commands.gethook = function(hook)
+    local hook = wyvern.util.get_hook(hook)
+    if hook then
+        return hook
+    else
+        return nil
+    end
+end
+
+wyvern.commands.getevent = function(event)
+    local event = wyvern.util.get_event(event)
+    if event then
+        return event
+    else
+        return nil
+    end
+end
+
+wyvern.commands.getcommand = function(command)
+    local command = wyvern.util.get_command(command)
+    if command then
+        return command
+    else
+        return nil
+    end
+end
+
+wyvern.commands.getconfig = function(config)
+    local config = wyvern.util.get_config(config)
+    if config then
+        return config
+    else
+        return nil
+    end
+end
+
+wyvern.commands.getmodule = function(module)
+    local module = wyvern.util.get_module(module)
+    if module then
+        return module
+    else
+        return nil
+    end
+end
+
+wyvern.commands.download = function(player , args)
+   local thingtoget = args[1]
+   local thingname = args[2]
+
+   if thingtoget == "plugin" then
+
+    if thingname == nil then
+        return warn"Please enter a plugin name"
+    end
+    wyvern.util.download_plugin(thingname)
+   end
+   if thingtoget == "command" then
+
+    if thingname == nil then
+        return warn"Please enter a command name"
+    end
+    wyvern.util.download_command(thingname)
+   end
+   if thingtoget == "event" then
+
+    if thingname == nil then
+        return warn"Please enter a event name"
+    end
+    wyvern.util.download_event(thingname)
+   end
+   if thingtoget == "hook" then
+
+    if thingname == nil then
+        return warn"Please enter a hook name"
+    end
+    wyvern.util.download_hook(thingname)
+   end
+   if thingtoget == "module" then
+
+    if thingname == nil then
+        return warn"Please enter a module name"
+    end
+    wyvern.util.download_module(thingname)
+   end
+    if thingtoget == "config" then
+    
+     if thingname == nil then
+          return warn"Please enter a config name"
+     end
+     wyvern.util.download_config(thingname)
+    end
+    -- log downloaded a new thingtoget named thingname
+    wyvern.util.log("Downloaded a new "..thingtoget.." named "..thingname, "info")
 end
 
 --[[
