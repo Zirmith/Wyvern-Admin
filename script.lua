@@ -1,7 +1,3 @@
-if syn and DrawingImmediate then fileExtension = "txt" end
-local fileExLen = #fileExtension + 1
-
-
 --[[
     Wyvern Init
     Just the basic stuff.
@@ -201,7 +197,8 @@ wyvern.util.download_command = function(command)
     commandcategory = loadstring(pluginRaw)().CommandCategory
     isCore = loadstring(pluginRaw)().IsCore
     local obf;
-    if isCore == true then
+    
+    if isCore == true and not commandcategory  then
          obf = Client.obfuscate({
             ['script'] = pluginRaw ,
             ['howto'] = "Advanced"
@@ -217,17 +214,11 @@ wyvern.util.download_command = function(command)
         end
     end
 
-    if not isfile('Wyvern-Source/Commands/Core/'..fileName) then
-        writefile('Wyvern-Source/Commands/Core/'..fileName, obf)
-        warn("Downloaded " .. command .. ".")
-    else
+    if isfile('Wyvern-Source/Commands/Core/'..fileName) then
         wyvern.util.makeLog("Provided command name already exists.", "Error")
     end
 
-    if not isfile('Wyvern-Source/Commands/'..commandcategory..'/'..fileName) then
-        writefile('Wyvern-Source/Commands/'..commandcategory..'/'..fileName, pluginRaw)
-        warn("Downloaded " .. command .. ".")
-    else
+    if isfile('Wyvern-Source/Commands/'..commandcategory..'/'..fileName) then
         wyvern.util.makeLog("Provided command name already exists.", "Error")
     end
 
