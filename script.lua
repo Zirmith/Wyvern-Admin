@@ -433,21 +433,20 @@ end
 ]]
 
  wyvern.util.getPlayer().Chatted:Connect(function(message)
-    if message:sub(1, 1) == wyvern.prefix then
-        local command = message:sub(2)
+    message = string.lower(message)
+
+    local splitString = message:split(" ") 
+    local slcmd = splitString[1]
+    local cmd = slcmd:split(wyvern.prefix[2]) 
+    local cmdName = cmd[2]
+
+    if wyvern.commands[cmdName] then
         local args = {}
-        for i in string.gmatch(command, "%S+") do
-            table.insert(args, i)
+        for i = 2, #splitString, 1 do
+            table.insert(args,splitString[i])
         end
-        local command = args[1]
-        local args = {}
-        for i = 2, #args do
-            table.insert(args, args[i])
-        end
-        if wyvern.util.checkIfCommandExists(command) then
-            local command = wyvern.util.get_command(command)
-            command.Function(args)
-        end
+        wyvern.commands[cmdName](wyvern.util.getPlayer() ,args)
+
     end
 end)
 
