@@ -212,8 +212,34 @@ wyvern.util.download_command = function(command)
     local pluginRaw = wyvern.util.requestGet(url)
     fileName = loadstring(pluginRaw)().CommandName .. ".lua"
     commandcategory = loadstring(pluginRaw)().CommandCategory
-	writefile('Wyvern-Source/Commands/'..commandcategory..'/'..fileName, pluginRaw)
-    warn("Downloaded " .. command .. ".")
+    isCore = loadstring(pluginRaw)().IsCore
+
+    if isCore == true then
+        writefile('Wyvern-Source/Commands/Core'..fileName, pluginRaw)
+        warn("Downloaded " .. command .. ".")
+    else
+        if isCore == false and commandcategory then
+            writefile('Wyvern-Source/Commands/'..commandcategory..'/'..fileName, pluginRaw)
+            warn("Downloaded " .. command .. ".")
+        else
+            wyvern.util.makeLog("Command " .. command .. " has no category.", "Error")
+        end
+    end
+
+    if not isfile('Wyvern-Source/Commands/Core/'..fileName) then
+        writefile('Wyvern-Source/Commands/Core/'..fileName, pluginRaw)
+        warn("Downloaded " .. command .. ".")
+    else
+        wyvern.util.makeLog("Provided command name already exists.", "Error")
+    end
+
+    if not isfile('Wyvern-Source/Commands/'..commandcategory..'/'..fileName) then
+        writefile('Wyvern-Source/Commands/'..commandcategory..'/'..fileName, pluginRaw)
+        warn("Downloaded " .. command .. ".")
+    else
+        wyvern.util.makeLog("Provided command name already exists.", "Error")
+    end
+
 end
 
 wyvern.util.download_config = function(config)
@@ -297,7 +323,8 @@ for i,v in pairs(wyvern.categories) do
 end
 
 for i,v in pairs(wyvern.coreCommands) do
-    makefolder(wyvern.DefaultFolderPath .. '/Commands/Core/' .. v)
+    makefolder(wyvern.DefaultFolderPath .. '/Commands/Core/')
+    wyvern.util.download_command(v)
     warn("Created " .. v .. " folder.")
 end
 
